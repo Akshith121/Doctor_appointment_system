@@ -2,9 +2,11 @@ import express from "express";
 import cors from "cors";
 import 'dotenv/config'
 import { getDay, checkIfSunday } from "./middleware";
+import { PrismaClient } from '@prisma/client'
 
 const app = express();
 const PORT = 4000;
+const prisma = new PrismaClient()
 
 app.use(cors());
 
