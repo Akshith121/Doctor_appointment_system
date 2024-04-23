@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import 'dotenv/config'
+import { getDay } from "./middleware";
 
 const app = express();
 const PORT = 4000;
@@ -16,6 +17,8 @@ app.get('/doctors', (req, res) => {
 app.get('/doctor/details/:id', (req, res) => {
     res.status(200).json({ doctor: "name and all details" })
 })
+
+app.use(getDay);
 
 //doctor availability details
 app.get('/doctors/available', (req, res) => {
