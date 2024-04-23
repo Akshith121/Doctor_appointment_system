@@ -14,9 +14,11 @@ const doctorSchema = z.object({
 type doctorParams = z.infer<typeof doctorSchema>
 
 const slotSchema = z.object({
+    id: z.string(),
     six_seven: z.number(),
     seven_eight: z.number(),
-    eight_nine: z.number()
+    eight_nine: z.number(),
+    doctorId: z.string()
 })
 
 type slotParams = z.infer<typeof slotSchema>
