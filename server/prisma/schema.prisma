@@ -27,6 +27,7 @@ model Doctor {
 
 model Slot {
   id String @id @unique @default(uuid())
+  five_six Int
   six_seven Int
   seven_eight Int
   eight_nine Int

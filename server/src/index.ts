@@ -3,14 +3,24 @@ import cors from "cors";
 import 'dotenv/config'
 import { getDay, checkIfSunday } from "./middleware";
 import { PrismaClient } from '@prisma/client'
+import bodyParser from "body-parser"; 
 
 const app = express();
 const PORT = 4000;
 const prisma = new PrismaClient()
 
+app.use(bodyParser.json());
 app.use(cors());
 
-app.use(getDay);
+app.post('/doctor/post', async (req, res) => {
+   const doctor = req.body;
+   const data = await prisma.doctor.create({
+    data: doctor
+   })
+   return res.status(200).json({data})
+})
+
+// app.use(getDay);
 
 //doctors listing
 app.get('/doctors', (req, res) => {
@@ -18,11 +28,16 @@ app.get('/doctors', (req, res) => {
 })
 
 //doctor details
-app.get('/doctor/details/:id', (req, res) => {
-    res.status(200).json({ doctor: "name and all details" })
+app.get('/doctor/details/:id', async (req, res) => {
+    const doctor = await prisma.doctor.findFirst({
+        where: {
+            id: req.params.id
+        }
+    })
+    res.status(200).json({ doctor })
 })
 
-app.use(checkIfSunday);
+// app.use(checkIfSunday);
 
 //doctor availability details
 app.get('/doctors/available', (req, res) => {
